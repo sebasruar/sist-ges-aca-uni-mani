@@ -57,3 +57,7 @@ class Docente(Persona):
         print("--- DOCENTE ---")
         super().mostrar_informacion()
         print(f"Empleado: {self.numero_empleado} | Facultad: {self.facultad} | Contrato: {self.tipo_contratacion} | Horas: {self.horas_semanales}")
+
+    def realizar_actividad_principal(self):
+        """Imprime la actividad principal del docente."""
+        print(f"El docente orienta clases en la facultad de {self.facultad}.")

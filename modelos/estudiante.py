@@ -60,3 +60,7 @@ class Estudiante(Persona):
         print("--- ESTUDIANTE ---")
         super().mostrar_informacion()
         print(f"Código: {self.codigo_estudiantil} | Programa: {self.programa.nombre} | Semestre: {self.semestre} | Promedio: {self.promedio}")
+
+    def realizar_actividad_principal(self):
+        """Imprime la actividad principal del estudiante."""
+        print(f"El estudiante cursa el programa de {self.programa.nombre} y está en el semestre {self.semestre}.")

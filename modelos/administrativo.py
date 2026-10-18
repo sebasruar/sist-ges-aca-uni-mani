@@ -55,3 +55,7 @@ class Administrativo(Persona):
         print("--- ADMINISTRATIVO ---")
         super().mostrar_informacion()
         print(f"Empleado: {self.numero_empleado} | Dependencia: {self.dependencia} | Cargo: {self.cargo} | Jornada: {self.jornada}")
+
+    def realizar_actividad_principal(self):
+        """Imprime la actividad principal del administrativo."""
+        print(f"El administrativo se desempeña como {self.cargo} en la dependencia de {self.dependencia}.")

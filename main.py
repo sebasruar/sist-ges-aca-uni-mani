@@ -1,4 +1,3 @@
-from modelos.persona import Persona
 from modelos.programa_academico import ProgramaAcademico
 from modelos.asignatura import Asignatura
 from modelos.estudiante import Estudiante
@@ -51,9 +50,14 @@ if __name__ == "__main__":
     except ValueError as e:
         print(f"Error capturado (Correo vacío): {e}")
 
+    try:
+        asig_prog.creditos = 0
+    except ValueError as e:
+        print(f"Error capturado (Créditos inválidos): {e}")
+
     print("\n--- 6. RECORRIDO POLIMÓRFICO (Un solo ciclo) ---")
     comunidad = [est1, est2, doc1, doc2, adm1, adm2]
-    
+
     for persona in comunidad:
         # Un solo ciclo invoca ambos métodos
         persona.mostrar_informacion()

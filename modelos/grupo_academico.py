@@ -1,6 +1,7 @@
 from modelos.horario import Horario
 from modelos.asignatura import Asignatura
 from modelos.docente import Docente
+from modelos.estudiante import Estudiante
 from modelos.excepciones import EstudianteDuplicadoError, CapacidadMaximaError, EstudianteNoMatriculadoError
 
 class GrupoAcademico:
@@ -12,8 +13,22 @@ class GrupoAcademico:
         self.docente = docente
         self.capacidad_maxima = capacidad_maxima
         
+        # COMPOSICIÓN: El grupo crea su propio horario por dentro
         self.horario = Horario(dia, hora_inicio, hora_fin, salon)
+        
+        # Encapsulamiento: Lista privada
         self.__estudiantes_matriculados = []
+
+    # --- VALIDACIONES CON SETTERS ---
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, valor):
+        if not isinstance(valor, str) or not valor.strip():
+            raise ValueError("El código del grupo debe ser un texto no vacío.")
+        self.__codigo = valor
 
     @property
     def asignatura(self):
@@ -45,6 +60,7 @@ class GrupoAcademico:
             raise ValueError("La capacidad máxima debe ser un número entero mayor a cero.")
         self.__capacidad_maxima = valor
 
+    # --- MÉTODOS ---
     def mostrar_informacion_grupo(self):
         print(f"--- GRUPO {self.codigo} ---")
         print(f"Asignatura: {self.asignatura.nombre} | Docente: {self.docente.nombre}")
@@ -52,6 +68,10 @@ class GrupoAcademico:
         self.horario.mostrar_horario()
 
     def matricular_estudiante(self, estudiante):
+        if not isinstance(estudiante, Estudiante):
+            raise ValueError("Solo se pueden matricular objetos de tipo Estudiante.")
+        
+        # Comparar por código estudiantil, no por objeto
         for est in self.__estudiantes_matriculados:
             if est.codigo_estudiantil == estudiante.codigo_estudiantil:
                 raise EstudianteDuplicadoError(f"El estudiante con código {estudiante.codigo_estudiantil} ya está matriculado en este grupo.")

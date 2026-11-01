@@ -29,43 +29,50 @@ if __name__ == "__main__":
     asig_prog = Asignatura("PRG1", "Programación I", 4, prog_ingenieria)
     asig_anatomia = Asignatura("ANA1", "Anatomía", 6, prog_medicina)
 
+    # Docentes (Ana María es de Ingenierías, Carlos es de Salud)
     doc1 = Docente("202", "Ana María", "ana@umanizales.edu.co", "DOC001", "Ingenierías", "Planta", 20)
+    doc2 = Docente("203", "Carlos", "carlos@umanizales.edu.co", "DOC002", "Salud", "Cátedra", 10)
     
+    # Estudiantes (Sebastián, Andrés y Camila son de Ingeniería; Valentina es de Medicina)
     est1 = Estudiante("101", "Sebastián", "sebas@umanizales.edu.co", "EST001", prog_ingenieria, 3, 4.5)
     est2 = Estudiante("102", "Valentina", "valen@umanizales.edu.co", "EST002", prog_medicina, 5, 4.8)
     est3 = Estudiante("103", "Andrés", "andres@umanizales.edu.co", "EST003", prog_ingenieria, 2, 3.9)
+    est4 = Estudiante("104", "Camila", "camila@umanizales.edu.co", "EST004", prog_ingenieria, 4, 4.2)
 
     print("Programas, asignaturas, docentes y estudiantes creados con éxito.")
 
     print("\n--- 3. CREACIÓN DE HORARIOS Y AL MENOS DOS GRUPOS ACADÉMICOS ---")
-    # El constructor de GrupoAcademico ahora pide los datos del horario directamente
+    # G01: Programación I (Ingeniería) - Docente Ana María (Ingenierías) - Capacidad 2
     grupo1 = GrupoAcademico("G01", asig_prog, doc1, 2, "Lunes", "08:00", "10:00", "Aula 201")
-    grupo2 = GrupoAcademico("G02", asig_anatomia, doc1, 2, "Martes", "14:00", "16:00", "Aula 305")
+    
+    # G02: Anatomía (Medicina) - Docente Carlos (Salud) - Capacidad 2
+    grupo2 = GrupoAcademico("G02", asig_anatomia, doc2, 2, "Martes", "14:00", "16:00", "Aula 305")
 
     print("Grupos académicos creados.")
 
     print("\n--- 4. MATRÍCULA CORRECTA DE ESTUDIANTES ---")
     try:
-        grupo1.matricular_estudiante(est1)
-        grupo1.matricular_estudiante(est2)
+        grupo1.matricular_estudiante(est1)  # Sebastián (Ingeniería)
+        grupo1.matricular_estudiante(est3)  # Andrés (Ingeniería)
+        grupo2.matricular_estudiante(est2)  # Valentina (Medicina)
     except (EstudianteDuplicadoError, CapacidadMaximaError) as e:
         print(f"Error inesperado en matrícula: {e}")
 
     print("\n--- 5. INTENTO DE MATRICULAR UN ESTUDIANTE DUPLICADO ---")
     try:
-        grupo1.matricular_estudiante(est1)
+        grupo1.matricular_estudiante(est1)  # Sebastián ya está en G01
     except EstudianteDuplicadoError as e:
         print(f"Error capturado (Estudiante duplicado): {e}")
 
     print("\n--- 6. INTENTO DE SUPERAR LA CAPACIDAD DE UN GRUPO ---")
     try:
-        grupo1.matricular_estudiante(est3)
+        grupo1.matricular_estudiante(est4)  # Camila intenta entrar a G01 lleno
     except CapacidadMaximaError as e:
         print(f"Error capturado (Capacidad máxima): {e}")
 
     print("\n--- 7. RETIRO CORRECTO DE UN ESTUDIANTE ---")
     try:
-        grupo1.retirar_estudiante("EST001")
+        grupo1.retirar_estudiante("EST001")  # Retirar a Sebastián
     except EstudianteNoMatriculadoError as e:
         print(f"Error inesperado: {e}")
 
@@ -76,7 +83,6 @@ if __name__ == "__main__":
         print(f"Error capturado (Estudiante no matriculado): {e}")
 
     print("\n--- 9 y 10. BÚSQUEDA DE ASIGNATURA Y PROGRAMA INEXISTENTES ---")
-    # Usamos la clase SistemaAcademico para lanzar las excepciones desde ahí
     sistema = SistemaAcademico()
     sistema.agregar_programa(prog_ingenieria)
     sistema.agregar_programa(prog_medicina)
@@ -98,9 +104,7 @@ if __name__ == "__main__":
 
     print("\n--- 12. POLIMORFISMO: LISTA HETEROGÉNEA CON UN SOLO CICLO (AC1) ---")
     
-    # Creamos 2 docentes y 2 administrativos adicionales para tener 6 personas
-    doc2 = Docente("203", "Carlos", "carlos@umanizales.edu.co", "DOC002", "Salud", "Cátedra", 10)
-    
+    # Creamos los 2 administrativos para tener 6 personas en total
     adm1 = Administrativo("303", "Luis", "luis@umanizales.edu.co", "ADM001", "Registro", "Coordinador", "Diurna")
     adm2 = Administrativo("304", "Marta", "marta@umanizales.edu.co", "ADM002", "Biblioteca", "Auxiliar", "Nocturna")
 
@@ -117,3 +121,4 @@ if __name__ == "__main__":
     grupo1.mostrar_informacion_grupo()
     grupo1.mostrar_estudiantes()
     grupo2.mostrar_informacion_grupo()
+    grupo2.mostrar_estudiantes()

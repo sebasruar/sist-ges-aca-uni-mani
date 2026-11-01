@@ -1,4 +1,5 @@
-class Persona:
+from abc import ABC, abstractmethod
+class Persona(ABC):
     """Clase base que representa a una persona en la universidad."""
     
     def __init__(self, identificacion, nombre, correo):
@@ -39,3 +40,8 @@ class Persona:
     def mostrar_informacion(self):
         """Imprime los datos generales de la persona."""
         print(f"ID: {self.identificacion} | Nombre: {self.nombre} | Correo: {self.correo}")
+
+    @abstractmethod
+    def realizar_actividad_principal(self):
+        """Método abstracto que deben implementar las clases hijas."""
+        pass

@@ -8,7 +8,7 @@
 **Integrante:** Johan Sebastian Ardila Rueda (sebasruar)  
 
 ## Descripción general
-Se realiza este proyecto, el cual es la primera versión de un sistema de gestión académica que se desarrolla en Python. Este nos permite realizar registros y consultas de información de la comunidad académica (estudiantes, docentes y personal administrativo), de los programas académicos y de las asignaturas, que pertenecen a un programa.
+Se realiza este proyecto, el cual es la primera versión y segunda de un sistema de gestión académica que se desarrollo en Python. Este nos permite realizar registros y consultas de información de la comunidad académica (estudiantes, docentes y personal administrativo), de los programas académicos y de las asignaturas, que pertenecen a un programa.
 
 Todas las personas comparten datos generales, los cuales son identificación, nombre y correo. Cada tipo agrega los suyos: el estudiante su código estudiantil, programa, semestre y promedio; el docente su número de empleado, facultad, tipo de contratación y horas semanales; y el administrativo su número de empleado, dependencia, cargo y jornada.
 
@@ -35,7 +35,8 @@ sist-ges-aca-uni-mani/
 │
 ├── main.py
 ├── .gitignore
-└── README.md
+├── README.md
+└── Documento_Decisiones.md
 ```
 
 ## Instrucciones para ejecutar
@@ -64,8 +65,19 @@ La clase Persona ahora hereda de ABC y tiene el método realizar_actividad_princ
 **Composición (AC2):**
 La clase GrupoAcademico contiene un objeto Horario. Esta relación es de composición porque el horario se crea internamente en el constructor del grupo (recibiendo día, hora inicio, hora fin y salón), y no tiene sentido sin el grupo. No es herencia porque un grupo no "es un" horario, sino que "tiene un" horario.
 
-**Excepciones Personalizadas (AC2):**
-Se crearon clases como EstudianteDuplicadoError, CapacidadMaximaError, EstudianteNoMatriculadoError, AsignaturaNoEncontradaError y ProgramaNoEncontradoError. Estas se lanzan desde los métodos correspondientes (ej. matricular_estudiante) y se capturan en el main.py con bloques try/except, permitiendo que el programa continúe su ejecución sin caerse.
+**Excepciones Personalizadas (AC2):** 
+Se crearon clases como `EstudianteDuplicadoError`, `CapacidadMaximaError`, `EstudianteNoMatriculadoError`, `AsignaturaNoEncontradaError` y `ProgramaNoEncontradoError`. 
+- `EstudianteDuplicadoError` y `CapacidadMaximaError` se lanzan en `GrupoAcademico.matricular_estudiante()`. El duplicado se detecta comparando el `codigo_estudiantil`.
+- `EstudianteNoMatriculadoError` se lanza en `GrupoAcademico.retirar_estudiante()`.
+- `AsignaturaNoEncontradaError` y `ProgramaNoEncontradoError` se lanzan en `SistemaAcademico.buscar_asignatura()` y `buscar_programa()` respectivamente.
+Todas se capturan en el `main.py` con bloques `try/except`, permitiendo que el programa continúe.
+
+## Documento de Decisiones de Diseño
+El repositorio incluye el archivo `Documento_Decisiones.md`, que explica y justifica las decisiones de diseño tomadas en la Actividad 2.
+
+## Versiones
+- **v1.0:** Versión correspondiente a la Actividad Colaborativa 1.
+- **Entrega_AC2:** Versión correspondiente a la Actividad Colaborativa 2.
 
 ## Uso de herramientas de Inteligencia Artificial
 Se utilizaron herramientas de IA como apoyo durante el desarrollo:
@@ -75,6 +87,6 @@ Se utilizaron herramientas de IA como apoyo durante el desarrollo:
 
 Probé, corregí y ejecuté el código en VS Code, y repasé los conceptos (herencia, `super()`, encapsulamiento y polimorfismo) para poder explicarlos con mis propias palabras.
 
-Para el desarrollo de esta Actividad 2, usé las herramientas de IA para entender cómo funcionaban las clases abstractas y la composición, y para revisar que las excepciones personalizadas estuvieran bien implementadas. También repasé estos conceptos nuevos para poder explicarlos con mis palabras.
+Para el desarrollo de esta Actividad 2, usé DeepSeek para generar los esqueletos de las clases `Horario`, `GrupoAcademico` y `SistemaAcademico`, y para resolver dudas sobre composición y excepciones. Usé Claude para revisar el código frente a los requerimientos del documento, sugerir mejoras en la redacción y redactar el Documento de Decisiones. Probé, corregí y ejecuté todo el código en VS Code, y repasé los conceptos hasta poder explicarlos con mis palabras.
 
 Además, vi videos cortos en TikTok que me ayudaron a entender de forma práctica los conceptos de POO.
